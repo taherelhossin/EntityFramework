@@ -4518,12 +4518,16 @@ namespace Microsoft.EntityFrameworkCore.Tests
 
         private class CustomModelCustomizer : ModelCustomizer
         {
+            public CustomModelCustomizer(ModelCustomizerDependencies dependencies)
+                : base(dependencies)
+            {
+            }
         }
 
         private class CustomInMemoryValueGeneratorSelector : InMemoryValueGeneratorSelector
         {
-            public CustomInMemoryValueGeneratorSelector(IValueGeneratorCache cache)
-                : base(cache)
+            public CustomInMemoryValueGeneratorSelector(ValueGeneratorSelectorDependencies dependencies)
+                : base(dependencies)
             {
             }
         }

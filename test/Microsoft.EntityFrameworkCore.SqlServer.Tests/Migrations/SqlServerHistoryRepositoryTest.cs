@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.EntityFrameworkCore.Relational.Tests.TestUtilities;
@@ -142,7 +142,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests.Migrations
         {
             var annotationsProvider = new SqlServerAnnotationProvider();
             var sqlGenerator = new SqlServerSqlGenerationHelper();
-            var typeMapper = new SqlServerTypeMapper();
+            var typeMapper = new SqlServerTypeMapper(new RelationalTypeMapperDependencies());
 
             var commandBuilderFactory = new RelationalCommandBuilderFactory(
                 new FakeSensitiveDataLogger<RelationalCommandBuilderFactory>(),
@@ -162,15 +162,16 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests.Migrations
                         }
                     }),
                 new MigrationsModelDiffer(
-                    new SqlServerTypeMapper(),
+                    new SqlServerTypeMapper(new RelationalTypeMapperDependencies()),
                     annotationsProvider,
-                    new SqlServerMigrationsAnnotationProvider()),
+                    new SqlServerMigrationsAnnotationProvider(new MigrationsAnnotationProviderDependencies())),
                 new SqlServerMigrationsSqlGenerator(
-                    commandBuilderFactory,
-                    new SqlServerSqlGenerationHelper(),
-                    typeMapper,
-                    annotationsProvider,
-                    new SqlServerMigrationsAnnotationProvider()),
+                    new MigrationsSqlGeneratorDependencies(
+                        commandBuilderFactory,
+                        new SqlServerSqlGenerationHelper(),
+                        typeMapper,
+                        annotationsProvider),
+                    new SqlServerMigrationsAnnotationProvider(new MigrationsAnnotationProviderDependencies())),
                 annotationsProvider,
                 sqlGenerator);
         }

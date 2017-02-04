@@ -71,7 +71,7 @@
     <Compile Include="Infrastructure\Internal\SqlServerOptionsExtension.cs" />
     <Compile Include="Infrastructure\SqlServerDbContextOptionsBuilder.cs" />
     <Compile Include="Infrastructure\SqlServerEventId.cs" />
-    <Compile Include="Infrastructure\SqlServerModelValidator.cs" />
+    <Compile Include="Internal\SqlServerModelValidator.cs" />
     <Compile Include="Metadata\Conventions\Internal\SqlServerIndexConvention.cs" />
     <Compile Include="Metadata\Conventions\Internal\SqlServerMemoryOptimizedTablesConvention.cs" />
     <Compile Include="Metadata\Conventions\Internal\SqlServerValueGenerationStrategyConvention.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Metadata\ISqlServerKeyAnnotations.cs" />
     <Compile Include="Metadata\ISqlServerModelAnnotations.cs" />
     <Compile Include="Metadata\ISqlServerPropertyAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerAnnotationProvider.cs" />
+    <Compile Include="Metadata\Internal\SqlServerAnnotationProvider.cs" />
     <Compile Include="Metadata\SqlServerEntityTypeAnnotations.cs" />
     <Compile Include="Metadata\SqlServerIndexAnnotations.cs" />
     <Compile Include="Metadata\SqlServerKeyAnnotations.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Migrations\Internal\SqlServerMigrationsAnnotationProvider.cs" />
     <Compile Include="Migrations\Operations\SqlServerCreateDatabaseOperation.cs" />
     <Compile Include="Migrations\Operations\SqlServerDropDatabaseOperation.cs" />
-    <Compile Include="Migrations\SqlServerMigrationsSqlGenerator.cs" />
+    <Compile Include="Migrations\Internal\SqlServerMigrationsSqlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\SqlServerStrings.Designer.cs">
       <DependentUpon>SqlServerStrings.resx</DependentUpon>

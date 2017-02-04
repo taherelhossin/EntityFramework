@@ -102,7 +102,7 @@ namespace Microsoft.EntityFrameworkCore.Sqlite.Tests.Migrations
         {
             var annotationsProvider = new SqliteAnnotationProvider();
             var sqlGenerator = new SqliteSqlGenerationHelper();
-            var typeMapper = new SqliteTypeMapper();
+            var typeMapper = new SqliteTypeMapper(new RelationalTypeMapperDependencies());
 
             return new SqliteHistoryRepository(
                 Mock.Of<IRelationalDatabaseCreator>(),
@@ -114,17 +114,18 @@ namespace Microsoft.EntityFrameworkCore.Sqlite.Tests.Migrations
                         { typeof(SqliteOptionsExtension), new SqliteOptionsExtension() }
                     }),
                 new MigrationsModelDiffer(
-                    new SqliteTypeMapper(),
+                    new SqliteTypeMapper(new RelationalTypeMapperDependencies()),
                     annotationsProvider,
-                    new SqliteMigrationsAnnotationProvider()),
+                    new SqliteMigrationsAnnotationProvider(new MigrationsAnnotationProviderDependencies())),
                 new SqliteMigrationsSqlGenerator(
-                    new RelationalCommandBuilderFactory(
-                        new FakeSensitiveDataLogger<RelationalCommandBuilderFactory>(),
-                        new DiagnosticListener("Fake"),
-                        typeMapper),
-                    new SqliteSqlGenerationHelper(),
-                    typeMapper,
-                    annotationsProvider),
+                    new MigrationsSqlGeneratorDependencies(
+                        new RelationalCommandBuilderFactory(
+                            new FakeSensitiveDataLogger<RelationalCommandBuilderFactory>(),
+                            new DiagnosticListener("Fake"),
+                            typeMapper),
+                        new SqliteSqlGenerationHelper(),
+                        typeMapper,
+                        annotationsProvider)),
                 annotationsProvider,
                 sqlGenerator);
         }

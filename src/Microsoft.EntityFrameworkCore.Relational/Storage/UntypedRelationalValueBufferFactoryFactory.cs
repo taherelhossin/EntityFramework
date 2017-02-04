@@ -8,7 +8,9 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.Utilities;
 
 namespace Microsoft.EntityFrameworkCore.Storage
 {
@@ -29,6 +31,15 @@ namespace Microsoft.EntityFrameworkCore.Storage
     /// </summary>
     public class UntypedRelationalValueBufferFactoryFactory : IRelationalValueBufferFactoryFactory
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UntypedRelationalValueBufferFactoryFactory" /> class.
+        /// </summary>
+        /// <param name="dependencies"> Parameter object containing dependencies for this service. </param>
+        public UntypedRelationalValueBufferFactoryFactory([NotNull]RelationalValueBufferFactoryFactoryDependencies dependencies)
+        {
+            Check.NotNull(dependencies, nameof(dependencies));
+        }
+
         private struct CacheKey
         {
             public CacheKey(IReadOnlyList<Type> valueTypes)

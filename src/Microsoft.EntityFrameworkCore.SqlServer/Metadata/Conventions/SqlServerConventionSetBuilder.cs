@@ -54,7 +54,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
         }
 
         public static ConventionSet Build()
-            => new SqlServerConventionSetBuilder(new SqlServerTypeMapper(), null, null, new SqlServerSqlGenerationHelper())
+            => new SqlServerConventionSetBuilder(new SqlServerTypeMapper(new RelationalTypeMapperDependencies()), null, null, new SqlServerSqlGenerationHelper())
                 .AddConventions(new CoreConventionSetBuilder().CreateConventionSet());
     }
 }

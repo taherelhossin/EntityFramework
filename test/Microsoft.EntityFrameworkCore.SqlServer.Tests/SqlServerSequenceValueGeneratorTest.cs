@@ -71,7 +71,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests
 
             var generator = new SqlServerSequenceHiLoValueGenerator<TValue>(
                 new FakeRawSqlCommandBuilder(blockSize),
-                new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper()),
+                new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper(new RelationalTypeMapperDependencies())),
                 state,
                 CreateConnection());
 
@@ -118,7 +118,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests
             var state = new SqlServerSequenceValueGeneratorState(sequence);
 
             var executor = new FakeRawSqlCommandBuilder(blockSize);
-            var sqlGenerator = new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper());
+            var sqlGenerator = new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper(new RelationalTypeMapperDependencies()));
 
             var tests = new Func<Task>[threadCount];
             var generatedValues = new List<long>[threadCount];
@@ -161,7 +161,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Tests
 
             var generator = new SqlServerSequenceHiLoValueGenerator<int>(
                 new FakeRawSqlCommandBuilder(4),
-                new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper()),
+                new SqlServerUpdateSqlGenerator(new SqlServerSqlGenerationHelper(), new SqlServerTypeMapper(new RelationalTypeMapperDependencies())),
                 state,
                 CreateConnection());
 

@@ -20,7 +20,7 @@ namespace Microsoft.EntityFrameworkCore.Relational.Tests.TestUtilities
         }
 
         public static ConventionSet Build()
-            => new TestRelationalConventionSetBuilder(new TestRelationalTypeMapper(), null, null)
+            => new TestRelationalConventionSetBuilder(new TestRelationalTypeMapper(new RelationalTypeMapperDependencies()), null, null)
                 .AddConventions(new CoreConventionSetBuilder().CreateConventionSet());
     }
 }

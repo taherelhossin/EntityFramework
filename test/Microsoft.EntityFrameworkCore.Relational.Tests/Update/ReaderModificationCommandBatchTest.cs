@@ -570,10 +570,10 @@ namespace Microsoft.EntityFrameworkCore.Relational.Tests.Update
                     new RelationalCommandBuilderFactory(
                         new FakeSensitiveDataLogger<RelationalCommandBuilderFactory>(),
                         new DiagnosticListener("Fake"),
-                        new FakeRelationalTypeMapper()),
+                        new FakeRelationalTypeMapper(new RelationalTypeMapperDependencies())),
                     new RelationalSqlGenerationHelper(),
                     sqlGenerator ?? new FakeSqlGenerator(),
-                    new TypedRelationalValueBufferFactoryFactory())
+                    new TypedRelationalValueBufferFactoryFactory(new RelationalValueBufferFactoryFactoryDependencies()))
             {
                 ShouldAddCommand = true;
                 ShouldValidateSql = true;

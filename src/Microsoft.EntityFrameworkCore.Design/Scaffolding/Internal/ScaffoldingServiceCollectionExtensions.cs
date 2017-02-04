@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
@@ -18,6 +19,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         /// </summary>
         public static IServiceCollection AddScaffolding([NotNull] this IServiceCollection serviceCollection)
             => serviceCollection.AddSingleton<IFileService, FileSystemFileService>()
+                .AddSingleton<RelationalTypeMapperDependencies>()
                 .AddSingleton<ReverseEngineeringGenerator>()
                 .AddSingleton<ScaffoldingUtilities>()
                 .AddSingleton<CandidateNamingService>()
